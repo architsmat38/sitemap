@@ -99,6 +99,7 @@ func (r Request) Execute() {
 	request, err := http.NewRequest("GET", crawlableURL, nil)
 	if err != nil {
 		logger.Error(err)
+		return
 	}
 	request.Header.Set("User-Agent", utils.GetProxyUserAgent())
 	request.Header.Add("X-Forwarded-For", utils.GetRandomIP())
@@ -110,6 +111,7 @@ func (r Request) Execute() {
 	response, err := client.Do(request)
 	if err != nil {
 		logger.Error(err)
+		return
 	}
 	defer response.Body.Close()
 
@@ -119,6 +121,7 @@ func (r Request) Execute() {
 		document, err := goquery.NewDocumentFromReader(response.Body)
 		if err != nil {
 			logger.Error(err)
+			return
 		}
 
 		// Parse all URLs in the document

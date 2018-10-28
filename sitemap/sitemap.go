@@ -107,6 +107,6 @@ func print(sitemapLinksObj LinksObj, prefix string) {
  * Prints the sitemap
  */
 func (s *SitemapObj) Print() {
-	fmt.Println("\n###################################### SITEMAP ######################################\n")
+	fmt.Println("\n################################## SITEMAP ##################################\n")
 	print(s.sitemapLinks, "|--")
 }

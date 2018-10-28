@@ -39,6 +39,7 @@ func generateSitemapLinks(websiteURL string, wg *sync.WaitGroup) {
 		return
 	}
 
+	websiteURL = utils.GetCrawlableURL(websiteURL)
 	crawlQueue := make(chan string, 512)
 	crawlerObj := crawler.NewCrawler(20, crawlQueue, websiteURL)
 	worker := crawlerObj.GetWorker()

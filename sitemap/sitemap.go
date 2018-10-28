@@ -17,7 +17,6 @@ type LinksObj struct {
  */
 type SitemapObj struct {
 	sitemapLinks LinksObj
-	sitemapChan  chan LinksObj
 }
 
 /**
@@ -35,7 +34,6 @@ func NewSitemapManager(linkURL string) *SitemapObj {
 	// Sitemap object
 	s := SitemapObj{
 		sitemapLinks: l,
-		sitemapChan:  make(chan LinksObj),
 	}
 	return &s
 }
@@ -107,6 +105,6 @@ func print(sitemapLinksObj LinksObj, prefix string) {
  * Prints the sitemap
  */
 func (s *SitemapObj) Print() {
-	fmt.Println("\n################################## SITEMAP ##################################\n")
+	fmt.Println("################################## SITEMAP ##################################")
 	print(s.sitemapLinks, "|--")
 }

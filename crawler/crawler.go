@@ -125,7 +125,7 @@ func (r Request) Execute() {
 		}
 
 		// Parse all URLs in the document
-		allURLs := parser.ParseAllURLs(document, crawlableURL, r.WebsiteHost)
+		allURLs := parser.ParseAllURLs(document, r.WebsiteHost)
 		filteredURLs = append(filteredURLs, r.CrawlObj.FilterOutAndUpdateCrawledURLs(allURLs)...)
 
 		for _, url := range filteredURLs {

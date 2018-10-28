@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+	<meta name="generator" content="Hugo 0.40.1" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GolangCode - A Library of Go Snippets</title>
+    <meta name="description" content="A Library of Go Snippets">
+
+    <link rel="canonical" href="https://golangcode.com/" />
+    <link rel="dns-prefetch" href="//ajax.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//golangcode.disqus.com">
+
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="icon" sizes="16x16 32x32 64x64" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="196x196" href="/favicon-192.png">
+    <link rel="icon" type="image/png" sizes="160x160" href="/favicon-160.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+    <link rel="apple-touch-icon" href="/favicon-57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/favicon-114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/favicon-72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicon-144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/favicon-60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/favicon-120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/favicon-76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicon-152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta name="msapplication-TileImage" content="/favicon-144.png">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato:400,700|Merriweather:400,700">
+    <link rel="stylesheet" href="https://golangcode.com/css/style.css?v=1540501551">
+
+    <link rel="alternate" type="application/rss+xml" href="https://golangcode.com/index.xml" title="GolangCode" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:description" content="A Library of Go Snippets" />
+    <meta name="twitter:title" content="GolangCode - " />
+    <meta name="twitter:site" content="@golangcode" />
+    <meta name="twitter:creator" content="@golangcode" />
+
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="GolangCode - ">
+    <meta property="og:description" content="A Library of Go Snippets">
+    <meta property="og:url" content="https://golangcode.com/" />
+    <meta property="og:site_name" content="GolangCode" />
+    
+    
+
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "WebSite",
+        "url": "https://golangcode.com/",
+        "name": "GolangCode",
+        "author": {
+            "@type": "Person",
+            "name": "Edd Turtle"
+        },
+        "description": "A Library of Go Snippets"
+    }
+    </script>
+</head>
+
+	<body>
+    
+
+<div class="pre-nav-header">
+
+</div>
+
+<nav class="main-nav">
+	
+	<a href='https://golangcode.com/tags'>Tags</a>
+	<a href='https://golangcode.com/about'>About</a>
+	<a href='https://golangcode.com/search'>Search</a>
+
+	
+
+	
+	<a class="cta" href="https://golangcode.com/index.xml">Subscribe</a>
+	
+</nav>
+
+<div class="nav-ads-area">
+	<script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CK7D623I&placement=golangcodecom" id="_carbonads_js"></script>
+</div>
+
+
+    <div class="profile">
+    <section id="wrapper">
+        <header id="header">
+            <a href='https://golangcode.com/about'>
+                <img id="avatar"
+                	 src="https://golangcode.com/images/avatar.jpg" 
+                	 width="140" 
+                	 height="93" />
+            </a>
+            <h1>Golang Code</h1>
+            <h2>A Library of Go Snippets</h2>
+        </header>
+    </section>
+</div>
+
+
+    <section id="wrapper" class="home">
+        <ul id="post-list">
+    
+    
+        
+            
+                <li>
+                    
+                    <a href='https://golangcode.com/parsing-dates/' class="post-title">
+                        Parsing Dates from a String and Formatting 
+                        
+                    </a>
+                    <p>We almost touched on this in our post about unix time - but in this post we look at how to take an arbritary date in string format and converted it into a meaningful date in the format we want. This uses two important functions, Parse and Format, within the time package.
+The parse function is interesting because unlike some programming languages, to parse a date you don’t specify the date using letters (Y-m-d for example) but use a real time, this time in fact: 2006-01-02T15:04:05&#43;07:00.</p>
+
+                </li>
+            
+        
+    
+    
+        
+            
+                <li>
+                    
+                    <a href='https://golangcode.com/execute-a-command/' class="post-title">
+                        Run System Commands &amp; Binary Files 
+                        
+                    </a>
+                    <p>Within Go, like other languages, we have the ability to call external binaries. These allow us to do all sorts of things, but in our example we’re just going to print out our go version by calling our copy (located in /usr/local/go/bin on my computer).
+The Command function within the os/exec package will allow us to do this. It accepts at least one string - the name of the command/binary you’re trying to run - followed by any number of strings for it’s parameters.</p>
+
+                </li>
+            
+        
+    
+    
+        
+            
+                <li>
+                    
+                    <a href='https://golangcode.com/sorting-an-array-of-numeric-items/' class="post-title">
+                        Sorting an Array of Numbered String Values 
+                        
+                    </a>
+                    <p>This is an issue in programming when numbers are stored as strings - because as strings, when sorted alphabetically they will go by each digit, from first to last. You might encounter this problem when dealing with numbered file names, for example, which will be treated as strings but we might need to process them in order.
+In our example below we use both the sort and strconv packages to sort the array and convert the strings to numbers within our comparison function.</p>
+
+                </li>
+            
+        
+    
+    
+        
+            
+                <li>
+                    
+                    <a href='https://golangcode.com/creating-temp-files/' class="post-title">
+                        Creating &amp; Writing to Temp Files 
+                        
+                    </a>
+                    <p>We programmers often use temporary files and this example shows how we can create and write to one. We used the ioutil package which has functions for just this.
+The TempFile() accepts a folder and a prefix. As the folder we get the os’ temp directory (which would be /tmp on unix systems) and for the prefix we use a string, but if we don’t want one, we just pass an empty string.</p>
+
+                </li>
+            
+        
+    
+    
+        
+            
+                <li>
+                    
+                    <a href='https://golangcode.com/base-64-encode-decode/' class="post-title">
+                        Encode and Decode Strings using Base 64 
+                        
+                    </a>
+                    <p>The example below shows to how to encode and then subsequently decode a string using base 64. Doing this has many uses, one of which to safely encode byte data in structures like JSON.
+We use the encoding/base64 package to do this, which takes in and returns a byte array into it’s EncodeToString and DecodeString methods.
+package main import ( &#34;encoding/base64&#34; &#34;fmt&#34; ) func main() { myString := &#34;This is golangcode.</p>
+
+                </li>
+            
+        
+    
+    
+        
+            
+                <li>
+                    
+                    <a href='https://golangcode.com/http-get-with-timeout/' class="post-title">
+                        HTTP Get with Timeout 
+                        
+                    </a>
+                    <p>We’ve already covered how to download a file, but this post covers it a little further by specifying the maximum time attempted on the request. Adding timeouts are often important to stop your program coming to a halt.
+To do this we make our own http client, giving it our custom timeout value. We can then use this client to make our requests. If a timeout is reached, the Get() function will return with an error.</p>
+
+                </li>
+            
+        
+    
+    
+        
+            
+                <li>
+                    
+                    <a href='https://golangcode.com/get-http-method-from-request/' class="post-title">
+                        Get the HTTP Method from a Request 
+                        
+                    </a>
+                    <p>When working with any form of http communication in Go you’re going to come across scenarios where you need to know a request’s method - whether it’s a GET, POST, etc.
+If you’re writing an API with Go you’ll most likely have the incoming request in the form of a http.Request object. This request has Method property which allows you to get the http method in the form of a string.</p>
+
+                </li>
+            
+        
+    
+    
+        
+            
+                <li>
+                    
+                    <a href='https://golangcode.com/lambda-pdf-generator-from-s3/' class="post-title">
+                        AWS Lambda PDF Generator 
+                        
+                    </a>
+                    <p>This is an example of how to convert HTML code into a PDF using AWS’ Lambda service and S3 Triggers. So that once a HTML file is upload to S3 it will automatically be converted into a PDF which should appear in the same bucket shortly after - all using a serverless function.
+To do this, other than the standard library, we’re using a Go wkhtmltopdf library and the Go AWS sdk.</p>
+
+                </li>
+            
+        
+    
+    
+        
+            
+                <li>
+                    
+                    <a href='https://golangcode.com/substring-num-of-characters/' class="post-title">
+                        Substring: How to Split a String 
+                        
+                    </a>
+                    <p>In the example below we are looking at how to take the first x number of characters from the start of a string. If we know a character we want to separate on, like a space, we can use strings.Split() instead. But for this we’re looking to get the first 6 characters as a new string.
+To do this we first convert it into a rune, allowing for better support in different languages and allowing us to use it like an array.</p>
+
+                </li>
+            
+        
+    
+    
+        
+            
+                <li>
+                    
+                    <a href='https://golangcode.com/middleware-on-handlers/' class="post-title">
+                        Apply Middleware to Your Route Handlers 
+                        
+                    </a>
+                    <p>Middleware is a term used in many different ways within software development, but we’re referring to it as a way to wrap requests and responses in simple abstracted functions which can be applied to some routes easily.
+In our example below we’re using an AuthMiddleware to check incoming requests for the correct api key and rejecting them if they don’t. Another good example for this technique is applying headers to responses, if you know the content type of the response, we can set it in middleware.</p>
+
+                </li>
+            
+        
+    
+</ul>
+
+        <nav id="post-nav">
+    
+        
+        
+        <span class="next">
+            <a href="/page/2/">
+                Older Posts <span class="arrow">→</span>
+            </a>
+        </span>
+        
+    
+</nav>
+        <footer id="footer">
+    
+        <div id="social">
+	
+    <a class="symbol" href="https://github.com/eddturtle/golangcode-site">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="/index.xml">
+        <i class="fa fa-rss-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/golangcode">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+</div>
+
+    
+    <p class="small">
+      Code shown Licenced under <a href="https://github.com/eddturtle/golangcode-site/blob/master/LICENSE">MIT Licence</a> 
+      &nbsp;&middot;&nbsp; 
+      <a href="/privacy">Privacy Policy</a>
+    </p>
+    <p class="small">
+    
+       © Copyright 2018 
+       <i class="fa fa-heart" aria-hidden="true"></i> 
+       <a href="https://www.designedbyaturtle.co.uk/">Designed by a Turtle</a>
+    
+    </p>
+</footer>
+
+    </section>
+
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+   window.jQuery || document.write('<script src="https:\/\/golangcode.com\/js/jquery-3.3.1.min.js"><\/script>');
+</script>
+
+<script src="https://golangcode.com/js/highlight.min.js"></script>
+<script src="https://golangcode.com/js/highlight-go.min.js"></script>
+<script src="https://golangcode.com/js/highlight-bash.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+<script>
+    window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
+    ga('create','UA-65854395-1','auto');ga('send','pageview')
+</script>
+<script src="https://www.google-analytics.com/analytics.js" async defer></script>
+
+
+<script type="text/javascript" async defer>
+    if (document.getElementById("disqus_thread") !== null) {
+        var disqus_shortname = 'golangcode';
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    }
+</script>
+
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+    </body>
+</html>

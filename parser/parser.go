@@ -8,7 +8,7 @@ import (
 /**
  * Parses all URLs present in the document, and also filters out irrelevant URLs (i.e. with different host)
  */
-func ParseAllURLs(document *goquery.Document, linkURL string, websiteHost string) []string {
+func ParseAllURLs(document *goquery.Document, websiteHost string) []string {
 	allURLs := document.Find("a").FilterFunction(func(key int, element *goquery.Selection) bool {
 		// See if the href attribute exists on the element
 		href, exists := element.Attr("href")

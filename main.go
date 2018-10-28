@@ -2,13 +2,13 @@ package main
 
 import (
 	"flag"
-	"net/url"
 	"os"
 	"sync"
 	"time"
 
 	"github.com/architsmat38/sitemap/crawler"
 	"github.com/architsmat38/sitemap/logger"
+	"github.com/architsmat38/sitemap/utils"
 )
 
 /**
@@ -16,11 +16,10 @@ import (
  */
 func validateWebsiteURL(websiteURL string) (bool, string) {
 	if len(websiteURL) == 0 {
-		return false, "Usage: ./sitemap-generator -u example.com"
+		return false, "Usage: ./sitemap-generator -u http://example.com"
 	}
 
-	_, err := url.ParseRequestURI(websiteURL)
-	if err != nil {
+	if !utils.IsValidURL(websiteURL) {
 		return false, "Please provide a valid website url"
 	}
 
@@ -30,31 +29,49 @@ func validateWebsiteURL(websiteURL string) (bool, string) {
 /**
  * Generate sitemap links of website
  */
-func generateSitemapLinks(websiteURL string, wg sync.WaitGroup) {
+func generateSitemapLinks(websiteURL string, wg *sync.WaitGroup) {
+	defer wg.Done()
+
+	// Fetch host for website URL
+	host, err := utils.GetHost(websiteURL)
+	if err != nil {
+		logger.Error(err)
+		return
+	}
+
 	crawlQueue := make(chan string, 512)
-	crawlerObj := crawler.NewCrawler(50, crawlQueue)
+	crawlerObj := crawler.NewCrawler(20, crawlQueue, websiteURL)
 	worker := crawlerObj.GetWorker()
 
+	crawlerObj.FilterOutAndUpdateCrawledURLs([]string{websiteURL})
 	crawlQueue <- websiteURL
 
-	for true {
+	var totalCrawled int
+	for {
 		select {
 		case url := <-crawlQueue:
-			task := &crawler.Request{WebsiteURL: url}
+			logger.Debug("Enqueue url: ", url)
+			task := &crawler.Request{WebsiteHost: host, LinkURL: url, CrawlObj: crawlerObj, CrawlQueue: crawlQueue}
 			worker.Exec(task)
+			totalCrawled++
+
+			// Adding delay to avoid getting blocked
+			if totalCrawled%100 == 0 {
+				time.Sleep(time.Millisecond * 250)
+			}
+
 		case <-time.Tick(10 * time.Second):
 			if worker.GetQueueSize()+len(crawlQueue) == 0 {
-				break
+				logger.Debug("Completed processing sitemap")
+				// Print sitemap
+				crawlerObj.SitemapObj.Print()
+
+				// Close crawler
+				crawlerObj.Close()
+				return
 			}
 		}
 	}
-
-	// Print sitemap
-	crawlerObj.SitemapObj.Print()
-
-	// Close crawler
-	crawlerObj.Close()
-	wg.Done()
 }
 
 /**
@@ -80,7 +97,7 @@ func main() {
 	 * Doing it in this way, as it will be easier to support sitemap generation
 	 * of multiple websites simultaneously (TODO)
 	 */
-	go generateSitemapLinks(websiteURL, wg)
+	go generateSitemapLinks(websiteURL, &wg)
 
 	wg.Wait()
 }

@@ -29,5 +29,5 @@ func Error(args ...interface{}) {
  * Prints custom logs
  */
 func Print(args ...interface{}) {
-	log.Print(args)
+	log.Print(args...)
 }

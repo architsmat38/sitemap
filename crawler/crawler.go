@@ -106,7 +106,7 @@ func (r Request) Execute() {
 
 	// Make request
 	client := &http.Client{
-		Timeout: 30 * time.Second,
+		Timeout: 5 * time.Second,
 	}
 	response, err := client.Do(request)
 	if err != nil {

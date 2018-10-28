@@ -61,7 +61,7 @@ func generateSitemapLinks(websiteURL string, wg *sync.WaitGroup) {
 				time.Sleep(time.Millisecond * 250)
 			}
 
-		case <-time.Tick(2 * time.Second):
+		case <-time.Tick(5 * time.Second):
 			if worker.GetQueueSize()+len(crawlQueue) == 0 {
 				logger.Debug("Completed processing sitemap")
 				// Print sitemap

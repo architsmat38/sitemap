@@ -22,7 +22,8 @@ func TestAddLinks(t *testing.T) {
 	s := NewSitemapManager(linkURL)
 
 	hrefLinks := []string{"http://example.com/abc", "http://example.com/xyz"}
-	s.AddLinks(linkURL, hrefLinks)
+	c := make(chan bool, 5)
+	s.AddLinks(linkURL, hrefLinks, &c)
 
 	_, ok := s.sitemapLinks.links[linkURL]
 	assert.True(t, ok)

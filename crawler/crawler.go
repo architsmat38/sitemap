@@ -17,10 +17,11 @@ import (
  * Structure of request to be processed by crawler
  */
 type Request struct {
-	WebsiteHost string
-	LinkURL     string
-	CrawlObj    *CrawlerObj
-	CrawlQueue  chan string
+	WebsiteHost  string
+	LinkURL      string
+	CrawlObj     *CrawlerObj
+	CrawlQueue   chan string
+	CrawledQueue chan bool
 }
 
 /**
@@ -75,15 +76,15 @@ func (c *CrawlerObj) Close() {
  */
 func (c *CrawlerObj) FilterOutAndUpdateCrawledURLs(allURLs []string) []string {
 	var filteredURLs []string
-	var mu sync.RWMutex
-	mu.Lock()
+	var mu sync.Mutex
 	for _, url := range allURLs {
+		mu.Lock()
 		if _, ok := c.crawledLinks[url]; !ok {
 			filteredURLs = append(filteredURLs, url)
 			c.crawledLinks[url] = true
 		}
+		mu.Unlock()
 	}
-	mu.Unlock()
 
 	return filteredURLs
 }
@@ -106,7 +107,7 @@ func (r Request) Execute() {
 
 	// Make request
 	client := &http.Client{
-		Timeout: 5 * time.Second,
+		Timeout: 10 * time.Second,
 	}
 	response, err := client.Do(request)
 	if err != nil {
@@ -135,9 +136,10 @@ func (r Request) Execute() {
 
 	// Record the sitemap
 	// In order to record all unique links
-	r.CrawlObj.SitemapObj.AddLinks(crawlableURL, filteredURLs)
+	go r.CrawlObj.SitemapObj.AddLinks(crawlableURL, filteredURLs, &r.CrawledQueue)
 
 	// In order to record all links (can be duplicate as well)
-	// r.CrawlObj.SitemapObj.AddLinks(crawlableURL, allURLs)
+	// go r.CrawlObj.SitemapObj.AddLinks(crawlableURL, allURLs, &r.CrawledQueue)
+
 	return
 }

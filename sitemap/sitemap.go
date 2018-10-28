@@ -82,11 +82,12 @@ func addLinks(sitemapLinksObj *LinksObj, linkURL string, hrefLinks []string) boo
 /**
  * Add new links in the sitemap
  */
-func (s *SitemapObj) AddLinks(linkURL string, hrefLinks []string) {
-	var mu sync.RWMutex
+func (s *SitemapObj) AddLinks(linkURL string, hrefLinks []string, crawledQueue *chan bool) {
+	var mu sync.Mutex
 	mu.Lock()
 	addLinks(&s.sitemapLinks, linkURL, hrefLinks)
 	mu.Unlock()
+	*crawledQueue <- true
 }
 
 /**

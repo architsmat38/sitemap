@@ -41,28 +41,31 @@ func generateSitemapLinks(websiteURL string, wg *sync.WaitGroup) {
 
 	websiteURL = utils.GetCrawlableURL(websiteURL)
 	crawlQueue := make(chan string, 512)
-	crawlerObj := crawler.NewCrawler(20, crawlQueue, websiteURL)
+	crawledQueue := make(chan bool, 512)
+	crawlerObj := crawler.NewCrawler(40, crawlQueue, websiteURL)
 	worker := crawlerObj.GetWorker()
 
 	crawlerObj.FilterOutAndUpdateCrawledURLs([]string{websiteURL})
 	crawlQueue <- websiteURL
 
+	var totalCrawling int
 	var totalCrawled int
 	for {
 		select {
 		case url := <-crawlQueue:
 			logger.Debug("Enqueue url: ", url)
-			task := &crawler.Request{WebsiteHost: host, LinkURL: url, CrawlObj: crawlerObj, CrawlQueue: crawlQueue}
+			task := &crawler.Request{WebsiteHost: host, LinkURL: url, CrawlObj: crawlerObj, CrawlQueue: crawlQueue, CrawledQueue: crawledQueue}
 			worker.Exec(task)
-			totalCrawled++
+			totalCrawling++
 
 			// Adding delay to avoid getting blocked
-			if totalCrawled%100 == 0 {
+			if totalCrawling%50 == 0 {
 				time.Sleep(time.Millisecond * 250)
 			}
 
-		case <-time.Tick(5 * time.Second):
-			if worker.GetQueueSize()+len(crawlQueue) == 0 {
+		case <-crawledQueue:
+			totalCrawled++
+			if totalCrawled == totalCrawling {
 				logger.Debug("Completed processing sitemap")
 				// Print sitemap
 				crawlerObj.SitemapObj.Print()
